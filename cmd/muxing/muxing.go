@@ -54,14 +54,9 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "I got message:\n%s", body)
 }
 func handleHeader(w http.ResponseWriter, r *http.Request) {
-	var s string
-	var d int
-	for k, v := range r.Header {
-		s += k + "+"
-		t, _ := strconv.Atoi(v[0])
-		d += t
-	}
-	w.Header().Add(s[:len(s)-1], strconv.Itoa(d))
+	a, _ := strconv.Atoi(r.Header.Get("a"))
+	b, _ := strconv.Atoi(r.Header.Get("b"))
+	w.Header().Add("a+b", strconv.Itoa(a+b))
 }
 func handleRoot(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
